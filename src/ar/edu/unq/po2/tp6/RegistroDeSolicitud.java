@@ -10,6 +10,7 @@ public class RegistroDeSolicitud {
 		else {
 			solicitud = new SolicitudHipotecario(cliente, monto, plazo, cliente.garantia());
 		}
+		
 		return solicitud;
 		
 	}

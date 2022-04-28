@@ -31,7 +31,7 @@ public class Cliente {
 		 * Registra una nueva solicitud de credito y la guarda en el cliente
 		 */
 		if(tipo == "credito hipotecario" && this.garantia == null) {
-			System.out.println("No tenes garantia");
+			throw new RuntimeException("No tenes garantia");
 		}
 		solicitud = (new RegistroDeSolicitud()).crearSolicitud(this, tipo, monto, plazo);
 	}
@@ -46,5 +46,9 @@ public class Cliente {
 	
 	public void agregarGarantia(Propiedad propiedad) {
 		this.garantia = propiedad;		
+	}
+	
+	public SolicitudDeCredito solicitudCredito() {
+		return solicitud;
 	}
 }

@@ -11,12 +11,15 @@ public class Banco {
 		this.clientes.add(cliente);
 	}
 	
-	public void registrarSolicitud(SolicitudDeCredito solicitud) {
-		this.solicitudes.add(solicitud);
+	public void registrarSolicitud(Cliente cliente) {
+		this.solicitudes.add(cliente.solicitudCredito());
 	}
 	
-	public boolean evaluarSolicitud(SolicitudDeCredito solicitud) {
-		return true;
+	public boolean evaluarSolicitud(Cliente cliente) {
+		/**
+		 * Evalua si la solicitud que hizo el cliente es apta para darle el credito.
+		 */
+		return cliente.solicitudCredito().chequearSolicitud();
 	}
 	
 }
