@@ -15,6 +15,6 @@ public class SolicitudPersonal extends SolicitudDeCredito{
 		 * y que el monto del credito no supere el 70% de su sueldo neto mensual.
 		 */
 		return cliente.sueldoNetoAnual() > 15000 
-				&& (this.monto * 0.7) < cliente.sueldoNetoMensual();
+				&& (this.montoCuotaMensual() * 0.7) < cliente.sueldoNetoMensual();
 	}
 }

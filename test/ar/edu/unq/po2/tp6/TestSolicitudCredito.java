@@ -21,7 +21,6 @@ class TestSolicitudCredito {
 	@Test
 	void testSinGarantia() {
 		assertThrows(RuntimeException.class, () -> agustin.solicitarCredito("credito hipotecario", 300000, 24));
-		hsbc.registrarSolicitud(agustin);
 		
 	}
 	
@@ -30,7 +29,21 @@ class TestSolicitudCredito {
 		agustin.agregarGarantia(casa);
 		agustin.solicitarCredito("credito hipotecario", 300000, 24);
 		hsbc.registrarSolicitud(agustin);
-		assertTrue(hsbc.evaluarSolicitud(agustin));
+		assertEquals(1, hsbc.solicitudes().size());
+	}
+	
+	@Test
+	void testCreditoPersonal() {
+		agustin.solicitarCredito("credito personal", 300000, 3);
+		hsbc.registrarSolicitud(agustin);
+		assertEquals(0, hsbc.solicitudes().size());
+	}
+	
+	@Test
+	void testSeRegistroSolicitudEnBanco() {
+		agustin.solicitarCredito("credito personal", 300000, 30);
+		hsbc.registrarSolicitud(agustin);
+		assert(hsbc.solicitudes().contains(agustin.solicitudCredito()));
 	}
 
 }
