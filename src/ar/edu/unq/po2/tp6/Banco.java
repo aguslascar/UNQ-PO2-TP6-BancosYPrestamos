@@ -31,4 +31,15 @@ public class Banco {
 		return solicitudes;
 	}
 	
+	public int montoTotalDePrestamos() {
+		/**
+		 * Retorna el monto total de los creditos solicitados que son aceptables.
+		 */
+		int total = 0;
+		for(SolicitudDeCredito solicitud : this.solicitudes()) {
+			total += solicitud.montoTotal();
+		}
+		return total;
+	}
+	
 }

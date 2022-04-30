@@ -1,9 +1,9 @@
 package ar.edu.unq.po2.tp6;
 
 public abstract class SolicitudDeCredito {
-	Cliente cliente;
-	int monto;
-	int plazo;
+	protected Cliente cliente;
+	protected int monto;
+	protected int plazo;
 	
 	public int montoCuotaMensual() {
 		/**
@@ -11,6 +11,8 @@ public abstract class SolicitudDeCredito {
 		 */
 		return this.monto / this.plazo;
 	}
-	
+	public int montoTotal() {
+		return monto;
+	}
 	public abstract boolean chequearSolicitud();
 }
