@@ -11,6 +11,8 @@ class TestBancoYRegistro {
 	Cliente martin;
 	Banco hsbc;
 	Propiedad casa;
+	SolicitudDeCredito solicitud;
+	SolicitudDeCredito solicitud2;
 	
 	@BeforeEach
 	public void setUp() {
@@ -20,42 +22,37 @@ class TestBancoYRegistro {
 		hsbc.agregarCliente(agustin);
 		hsbc.agregarCliente(martin);
 		casa = new Propiedad("es una casa", "caseros", 500000);
+		agustin.agregarGarantia(casa);
 	}
-	@Test
-	void testSinGarantia() {
-		assertThrows(RuntimeException.class, () -> agustin.solicitarCredito("credito hipotecario", 300000, 24));
-		
-	}
+	
 	
 	@Test
 	void testHipotecarioConGarantia() {
-		agustin.agregarGarantia(casa);
-		agustin.solicitarCredito("credito hipotecario", 300000, 24);
-		hsbc.registrarSolicitud(agustin);
+		solicitud = new SolicitudHipotecario(agustin, 300000, 24, casa); 
+		hsbc.registrarSolicitud(solicitud);
 		assertEquals(1, hsbc.solicitudes().size());
 	}
 	
 	@Test
 	void testCreditoPersonal() {
-		agustin.solicitarCredito("credito personal", 300000, 3);
-		hsbc.registrarSolicitud(agustin);
-		assertEquals(0, hsbc.solicitudes().size());
+		solicitud = new SolicitudPersonal(agustin, 300000, 3);
+		hsbc.registrarSolicitud(solicitud);
+		assert(!hsbc.esSolicitudAceptable(solicitud));
 	}
 	
 	@Test
 	void testSeRegistroSolicitudEnBanco() {
-		agustin.solicitarCredito("credito personal", 300000, 30);
-		hsbc.registrarSolicitud(agustin);
-		assert(hsbc.solicitudes().contains(agustin.solicitudCredito()));
+		solicitud = new SolicitudPersonal(agustin, 300000, 30);
+		hsbc.registrarSolicitud(solicitud);
+		assert(hsbc.solicitudes().contains(solicitud));
 	}
 	
 	@Test
 	void testMontoTotalDeCreditosAceptables() {
-		agustin.agregarGarantia(casa);
-		agustin.solicitarCredito("credito hipotecario", 300000, 24);
-		hsbc.registrarSolicitud(agustin);
-		martin.solicitarCredito("credito personal", 300000, 30);
-		hsbc.registrarSolicitud(martin);
+		solicitud = new SolicitudPersonal(agustin, 300000, 24);
+		hsbc.registrarSolicitud(solicitud);
+		solicitud2 = new SolicitudPersonal(martin, 300000, 30);
+		hsbc.registrarSolicitud(solicitud2);
 		assertEquals(600000, hsbc.montoTotalDePrestamos());
 		
 	}

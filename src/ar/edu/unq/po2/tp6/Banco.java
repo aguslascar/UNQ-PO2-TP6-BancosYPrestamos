@@ -11,20 +11,15 @@ public class Banco {
 		this.clientes.add(cliente);
 	}
 	
-	public void registrarSolicitud(Cliente cliente) {
+	public void registrarSolicitud(SolicitudDeCredito solicitud) {
 		/**
 		 * Chequea primero si la solicitud del cliente es aceptada y de ser asi, la registra.
 		 */
-		if(this.tieneSolicitudAceptable(cliente)) {
-			this.solicitudes.add(cliente.solicitudCredito());
-		}
+		this.solicitudes.add(solicitud);
 	}
 	
-	private boolean tieneSolicitudAceptable(Cliente cliente) {
-		/**
-		 * Evalua si la solicitud que hizo el cliente es apta para darle el credito.
-		 */
-		return cliente.solicitudCredito().chequearSolicitud();
+	public boolean esSolicitudAceptable(SolicitudDeCredito solicitud) {
+		return solicitud.chequearSolicitud();
 	}
 
 	public List<SolicitudDeCredito> solicitudes() {

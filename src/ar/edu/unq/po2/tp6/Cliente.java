@@ -26,16 +26,17 @@ public class Cliente {
 		return sueldoNeto * 12;
 	}
 	
+	/*
 	public void solicitarCredito(String tipo, int monto, int plazo) {
 		/** 
 		 * Registra una nueva solicitud de credito y la guarda en el cliente
-		 */
+		 
 		if(tipo == "credito hipotecario" && this.garantia == null) {
 			throw new RuntimeException("No tenes garantia");
 		}
 		solicitud = (new RegistroDeSolicitud()).crearSolicitud(this, tipo, monto, plazo);
 	}
-
+	*/
 	public int edad() {
 		return this.edad;
 	}
@@ -48,7 +49,9 @@ public class Cliente {
 		this.garantia = propiedad;		
 	}
 	
+	/*
 	public SolicitudDeCredito solicitudCredito() {
 		return solicitud;
 	}
+	*/
 }
